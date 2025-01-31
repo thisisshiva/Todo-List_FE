@@ -6,7 +6,7 @@ import { deleteTask, } from "../store/store";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
 
-const Todos = ({todo}) => {
+const Todos = ({todo, handleEdit}) => {
   
   const dispatch = useDispatch()
 
@@ -30,7 +30,7 @@ const Todos = ({todo}) => {
       <div className="flex items-center justify-around bg-white shadow-md rounded-lg p-4 mb-4 w-2xl">
         <p className="w-2/3 mx-3 text-1.5xl py-2">{todo.task}</p>
         
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded" onClick={()=>handleEdit(todo._id)}>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded" onClick={()=>handleEdit(todo)}>
           <FaEdit />
         </button>
         <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-4 rounded' onClick={()=>handleDelete(todo._id)}>

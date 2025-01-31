@@ -22,8 +22,12 @@ const taskReducer = (state = initialState, action) => {
       };
 
     case "task_edit":
-        const editedtask = state.task.map((tasks)=>tasks._id === action.payload._id? action.payload: tasks)
-        return {...state, task: [...state.task,editedtask]}
+      return {
+        ...state,
+        task: state.task.map((tasks) =>
+          tasks._id === action.payload._id ? action.payload : tasks
+        ),
+      };
 
     default:
       return state;
@@ -43,6 +47,6 @@ export const deleteTask = (id) => {
   return { type: "task_delete", payload: id };
 };
 
-export const editTask = (id) =>{
-    return {type: 'task_edit',payload: id}
-}
+export const editTask = (id) => {
+  return { type: "task_edit", payload: id };
+};
