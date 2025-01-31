@@ -47,6 +47,6 @@ export const deleteTask = (id) => {
   return { type: "task_delete", payload: id };
 };
 
-export const editTask = (id) => {
-  return { type: "task_edit", payload: id };
+export const editTask = (task) => {
+  return { type: "task_edit", payload: task };
 };

@@ -29,11 +29,12 @@ const Form = () => {
       } else {
         const res = await axios.post(
           BASE_URL + "/add",
-          { task: taskInput },
+          { task: taskInput, completed : false },
           { withCredentials: true }
         );
         dispatch(addTask(res.data));
       }
+
       setTaskInput("");
     } catch (err) {
       console.log("ERROR:" + err);
@@ -44,6 +45,24 @@ const Form = () => {
     setTaskInput(todo.task);      // Set input field to existing task text
     setEditingTodoId(todo._id);   // Store task ID for tracking edit mode
   };
+
+  const handleToggleCompleted = async (todo) =>{
+    
+    
+    if (!todo || !todo._id) {
+      console.log("Error: Todo is undefined or missing _id", todo);
+      return;
+    }
+    
+    try{
+      const updateTask = {...todo, completed: !todo.completed}
+      const res = await axios.post(BASE_URL+"/edit",updateTask,{withCredentials:true})
+      dispatch(editTask(res.data))
+    }catch(err){
+      console.log("ERROR:"+err);
+      
+    }
+  }
 
   return (
     <>
@@ -68,7 +87,7 @@ const Form = () => {
         <h1 className="text-3xl text-center font-bold">Add Some Todos</h1>
       ) : (
         todos.map((todo) => (
-          <Todos key={todo._id} todo={todo} handleEdit={handleEditClick} />
+          <Todos key={todo._id} todo={todo} handleEdit={handleEditClick} handleToggleCompleted={handleToggleCompleted} />
         ))
       )}
     </>
